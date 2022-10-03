@@ -22,6 +22,31 @@ public interface BaseballService {
     boolean checkNumberValid(char[] numbers, boolean exceptionThrow);
 
     /**
+     * 1~9 까지의 수로 이루어져 있는지 확인
+     *
+     * @param numbers 검사대상
+     * @return 숫자 검증 결과
+     */
+    String checkInteger(char[] numbers);
+
+    /**
+     * 입력받은 수 길이 확인
+     *
+     * @param numbers 검사대상
+     * @param count 제약 길이
+     * @return 숫자 검증 결과
+     */
+    String checkLength(char[] numbers, int count);
+
+    /**
+     * 중복되는 값 존재여부 확인
+     *
+     * @param numbers 검사대상
+     * @return 숫자 검증 결과
+     */
+    String checkDuplication(char[] numbers);
+
+    /**
      * 사용자 추측값과 정답 비교
      *
      * @param answerNumberVo 정답

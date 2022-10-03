@@ -51,15 +51,38 @@ public class BaseballServiceImpl implements BaseballService {
      * 숫자 유효성 확인
      *
      * @param numbers        유효성 확인할 문자 배열
-     * @param exceptionThrow Exception throw 여부
+     * @param exceptionThrow Exception throw 여부 (true: Exception throw)
      * @return 유효성 확인 결과 (true: 조건 만족, false: 조건 불충족)
      */
     @Override
     public boolean checkNumberValid(char[] numbers, boolean exceptionThrow) {
         boolean result = false;
-        String checkCase = "";
+        String checkCase = checkInteger(numbers); // 조건1) 1~9 까지의 수로 이루어져 있다
+        if (checkCase.equals("")) {
+            checkCase = checkLength(numbers, COUNT); // 조건2) 입력받은 수는 3자리 이다
+        }
+        if (checkCase.equals("")) {
+            checkCase = checkDuplication(numbers); // 조건3) 입력받은 수가 중복되지 않는다
+        }
+        if (checkCase.equals("")) {
+            result = true;
+        }
+        if (exceptionThrow && !result) {
+            throw new IllegalArgumentException(numberCheckResult.get(checkCase));
+        }
 
-        // 조건1) 1~9 까지의 수로 이루어져 있다
+        return result;
+    }
+
+    /**
+     * 1~9 까지의 수로 이루어져 있는지 확인
+     *
+     * @param numbers 검사대상
+     * @return 숫자 검증 결과
+     */
+    @Override
+    public String checkInteger(char[] numbers) {
+        String checkCase = "";
         String numberString = new String(numbers);
         try {
             Integer.parseInt(numberString);
@@ -72,30 +95,42 @@ public class BaseballServiceImpl implements BaseballService {
         if (Integer.parseInt(numberString) < 0) {
             checkCase = MINUS;
         }
+        return checkCase;
+    }
 
-        // 조건2) 입력받은 수의 개수가 3개이다
-        if (numbers.length != 3) {
+    /**
+     * 입력받은 수 길이 확인
+     *
+     * @param numbers 검사대상
+     * @param count 제약 길이
+     * @return 숫자 검증 결과
+     */
+    @Override
+    public String checkLength(char[] numbers, int count) {
+        String checkCase = "";
+        if (numbers.length != COUNT) {
             checkCase = LENGTH_NOT_MATCH;
         }
+        return checkCase;
+    }
 
-        // 조건3) 입력받은 수가 중복되지 않는다
+    /**
+     * 중복되는 값 존재여부 확인
+     *
+     * @param numbers 검사대상
+     * @return 숫자 검증 결과
+     */
+    @Override
+    public String checkDuplication(char[] numbers) {
+        String checkCase = "";
         HashSet<String> numberSet = new HashSet<>();
         for (char number : numbers) {
             numberSet.add(String.valueOf(number));
         }
-        if (numberSet.size() != 3) {
+        if (numberSet.size() != COUNT) {
             checkCase = DUPLICATED;
         }
-
-        if (checkCase.equals("")) {
-            result = true;
-        }
-        //exceptionThrow true일 때에만 Exception throw
-        if (exceptionThrow && !result) {
-            throw new IllegalArgumentException(numberCheckResult.get(checkCase));
-        }
-
-        return result;
+        return checkCase;
     }
 
     /**
@@ -110,7 +145,7 @@ public class BaseballServiceImpl implements BaseballService {
         CompareResultVo compareResultVo = new CompareResultVo();
         int ballCount = 0;
         int strikeCount = 0;
-        int length = guessNumberVo.getGuessNumber().length;
+        int length = answerNumberVo.getAnswerNumber().length;
         char[] guessNumbers = guessNumberVo.getGuessNumber();
 
         for (int i = 0; i < length; i++) {
@@ -157,7 +192,7 @@ public class BaseballServiceImpl implements BaseballService {
      */
     @Override
     public boolean checkNumberCorrect(CompareResultVo compareResultVo) {
-        return compareResultVo.getStrike() == 3;
+        return compareResultVo.getStrike() == COUNT;
     }
 
     /**
