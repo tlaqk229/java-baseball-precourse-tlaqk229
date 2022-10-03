@@ -29,8 +29,6 @@ public class BaseballServiceImpl implements BaseballService {
         }
     };
 
-    //m1
-
     /**
      * 임의의 3자리 숫자 생성
      *
@@ -48,8 +46,6 @@ public class BaseballServiceImpl implements BaseballService {
 
         return new AnswerNumberVo(answer);
     }
-
-    //m2
 
     /**
      * 숫자 유효성 확인
@@ -102,8 +98,6 @@ public class BaseballServiceImpl implements BaseballService {
         return result;
     }
 
-    //m3
-
     /**
      * 사용자 추측값과 정답 비교
      *
@@ -144,7 +138,6 @@ public class BaseballServiceImpl implements BaseballService {
     @Override
     public int[] judgePitching(String answer, char guessChar, int index) {
         int[] result = new int[]{0, 0}; // 볼 카운트, 스트라이크 카운트
-
         if (answer.charAt(index) == guessChar) {
             result[1] = 1;
             return result;
@@ -156,8 +149,6 @@ public class BaseballServiceImpl implements BaseballService {
         return result;
     }
 
-    //m4
-
     /**
      * 정답여부 확인
      *
@@ -168,8 +159,6 @@ public class BaseballServiceImpl implements BaseballService {
     public boolean checkNumberCorrect(CompareResultVo compareResultVo) {
         return compareResultVo.getStrike() == 3;
     }
-
-    //m5
 
     /**
      * 게임 재시작/종료 여부 타입값으로 변환

@@ -24,30 +24,21 @@ public class BaseballController {
     public void executeProgram() {
         boolean gameExecute = true;
         while (gameExecute) {
-            //c1 호출
             startGame();
-            //c4 호출
             gameExecute = askGameContinueOrNot();
         }
         return;
     }
 
-    //c1
-
     /**
      * 정답 생성 후 게임 진행 시작
      */
     public void startGame() {
-        //m1 호출
         do {
             answerNumberVo = baseballService.createAnswer();
         } while (!baseballService.checkNumberValid(answerNumberVo.getAnswerNumber(), false));
-
-        //c3 호출
         guessAnswerNumber();
     }
-
-    //c3
 
     /**
      * 게임 진행 (값 입력과 반복)
@@ -59,22 +50,19 @@ public class BaseballController {
     public void guessAnswerNumber() {
         boolean guessCorrect = false;
         while (!guessCorrect) {
-            //v1 호출 (output 사용자 입력값)
+            //사용자에게 숫자를 입력 받는다
             GuessNumberVo guessNumberVo = baseballView.playerInput();
-            //m2 호출 (input 사용자 입력값(v1 리턴값) / output 없음 - 유효성체크 안맞으면 프로그램 종료됨)
+            //입력받은 숫자 유효성 확인
             baseballService.checkNumberValid(guessNumberVo.getGuessNumber(), true);
-            //m3 호출 (input 정답, 사용자 입력값(v1 리턴값) / output 비교결과)
+            //정답과 입력받은 값 비교 - 볼, 스트라이크 카운트 저장
             CompareResultVo compareResultVo = baseballService.compareNumber(answerNumberVo, guessNumberVo);
-            //v2 printGuessResult 호출 (input m3 리턴값)
+            //결과 출력
             baseballView.printGuessResult(compareResultVo);
-            //m4 호출 (input 비교결과(m3 리턴값) / output 정답여부TF)
-            //guessCorrect에 정답여부TF(m4 리턴값) 대입
+            //정답여부 확인 (게임 승리 여부)
             guessCorrect = baseballService.checkNumberCorrect(compareResultVo);
         }
         System.out.println("3개의 숫자를 모두 맞히셨습니다.! 게임 종료");
     }
-
-    //c4
 
     /**
      * 사용자에게 게임 재시작/종료 여부 확인
@@ -85,14 +73,9 @@ public class BaseballController {
     public boolean askGameContinueOrNot() {
         String continueType = BaseballConstants.NOT_DEFINED;
         boolean continueOrNot = false;
-
         while (continueType.equals(BaseballConstants.NOT_DEFINED)) {
-            //v3 호츨
-            String gameContinueOrNotInput = baseballView.gameContinueOrNotInput();
-            //m5 호출 (input 사용자입력값(v3 리턴값) / output 게임재시작여부)
-            continueType = baseballService.checkContinueOrNot(gameContinueOrNotInput);
+            continueType = baseballService.checkContinueOrNot(baseballView.gameContinueOrNotInput());
         }
-
         if (continueType.equals(BaseballConstants.CONTINUE)) {
             continueOrNot = true;
         }
