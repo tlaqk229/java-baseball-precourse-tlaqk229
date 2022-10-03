@@ -164,6 +164,14 @@ public class BaseballServiceImpl implements BaseballService {
      */
     @Override
     public String checkContinueOrNot(String gameContinueOrNotInput) {
-        return null;
+        String result = gameContinueOrNotInput;
+
+        //정의된 선택값이 아닌 경우의 타입값 대입
+        if (!result.equals(BaseballConstants.CONTINUE) && !result.equals(BaseballConstants.TERMINATE)) {
+            result = BaseballConstants.NOT_DEFINED;
+            System.out.println("잘 못된 값을 입력하셨습니다.");
+        }
+
+        return result;
     }
 }
