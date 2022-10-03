@@ -100,7 +100,46 @@ public class BaseballServiceImpl implements BaseballService {
      */
     @Override
     public CompareResultVo compareNumber(AnswerNumberVo answerNumberVo, GuessNumberVo guessNumberVo) {
-        return null;
+        CompareResultVo compareResultVo = new CompareResultVo();
+        int ballCount = 0;
+        int strikeCount = 0;
+        int length = guessNumberVo.getGuessNumber().length;
+        char[] guessNumbers = guessNumberVo.getGuessNumber();
+
+        for (int i=0; i<length; i++) {
+            int[] counts = judgePitching(new String(answerNumberVo.getAnswerNumber()), guessNumbers[i], i);
+            ballCount += counts[0];
+            strikeCount += counts[1];
+        }
+        compareResultVo.setBall(ballCount);
+        compareResultVo.setStrike(strikeCount);
+
+        return compareResultVo;
+    }
+
+    /**
+     * 스트라이크/볼 판정
+     * @param answer 정답 숫자
+     * @param guessChar 사용자가 입력한 수 중 한 개 숫자
+     * @param index 사용자가 입력한 수 중 몇 번째 숫자인지
+     * @return 볼, 스트라이크 순으로 판정 결과 반환 (0: 해당없음, 1: 맞음)
+     * {1, 0} : 볼
+     * {0, 1} : 스트라이크
+     * {0, 0} : 둘 다 아님
+     */
+    @Override
+    public int[] judgePitching(String answer, char guessChar, int index) {
+        int[] result = new int[]{0,0}; // 볼 카운트, 스트라이크 카운트
+
+        if (answer.charAt(index)==guessChar) {
+            result[1] = 1;
+            return result;
+        }
+        if (answer.contains(String.valueOf(guessChar))) {
+            result[0] = 1;
+        }
+
+        return result;
     }
 
     //m4

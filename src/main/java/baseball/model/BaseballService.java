@@ -26,6 +26,18 @@ public interface BaseballService {
     CompareResultVo compareNumber(AnswerNumberVo answerNumberVo, GuessNumberVo guessNumberVo);
 
     /**
+     * 스트라이크/볼 판정
+     * @param answer 정답 숫자
+     * @param guessChar 사용자가 입력한 수 중 한 개 숫자
+     * @param index 사용자가 입력한 수 중 몇 번째 숫자인지
+     * @return 볼, 스트라이크 순으로 판정 결과 반환 (0: 해당없음, 1: 맞음)
+     * {1, 0} : 볼
+     * {0, 1} : 스트라이크
+     * {0, 0} : 둘 다 아님
+     */
+    int[] judgePitching(String answer, char guessChar, int index);
+
+    /**
      * 정답여부 확인
      * @param compareResultVo 스트라이크, 볼 카운트
      * @return 정답여부 (true: 정답 / false: 틀림)
