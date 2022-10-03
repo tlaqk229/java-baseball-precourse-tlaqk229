@@ -15,21 +15,25 @@ public class BaseballServiceImpl implements BaseballService {
     private static final int END_NUMBER = 9; //임의생성 숫자 범위 최대값
     private static final String NOT_INTEGER = "1"; //숫자 검증 결과 - 정수 아님
     private static final String OUT_OF_RANGE = "2"; //숫자 검증 결과 - 1~9 사이의 수가 아님
-    private static final String LENTH_NOTMATCH = "3"; //숫자 검증 결과 - 3자리 수가 아님
-    private static final String DUPLICATED = "4"; //숫자 검증 결과 - 중복 수 존재
+    private static final String MINUS = "3"; //숫자 검증 결과 - 1~9 사이의 수가 아님
+    private static final String LENGTH_NOT_MATCH = "4"; //숫자 검증 결과 - 3자리 수가 아님
+    private static final String DUPLICATED = "5"; //숫자 검증 결과 - 중복 수 존재
 
     private static final Map<String, String> numberCheckResult = new HashMap<String, String>() {
         {
             put(NOT_INTEGER, "문자는 입력할 수 없습니다.");
             put(OUT_OF_RANGE, "1~9 사이의 숫자를 입력해주세요.");
-            put(LENTH_NOTMATCH, "3자리 수를 입력해주세요.");
+            put(MINUS, "음수는 입력할 수 없습니다.");
+            put(LENGTH_NOT_MATCH, "3자리 수를 입력해주세요.");
             put(DUPLICATED, "중복된 값이 있습니다. 서로 다른 수를 입력해주세요.");
         }
     };
 
     //m1
+
     /**
      * 임의의 3자리 숫자 생성
+     *
      * @return 생성된 3자리 숫자
      */
     @Override
@@ -69,10 +73,13 @@ public class BaseballServiceImpl implements BaseballService {
         if (numberString.contains("0")) {
             checkCase = OUT_OF_RANGE;
         }
+        if (Integer.parseInt(numberString) < 0) {
+            checkCase = MINUS;
+        }
 
         // 조건2) 입력받은 수의 개수가 3개이다
-        if (numbers.length!=3) {
-            checkCase = LENTH_NOTMATCH;
+        if (numbers.length != 3) {
+            checkCase = LENGTH_NOT_MATCH;
         }
 
         // 조건3) 입력받은 수가 중복되지 않는다
