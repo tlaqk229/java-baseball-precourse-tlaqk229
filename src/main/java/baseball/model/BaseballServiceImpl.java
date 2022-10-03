@@ -150,7 +150,7 @@ public class BaseballServiceImpl implements BaseballService {
      */
     @Override
     public boolean checkNumberCorrect(CompareResultVo compareResultVo) {
-        return false;
+        return compareResultVo.getStrike() == 3;
     }
 
     //m5
