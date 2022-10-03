@@ -46,9 +46,11 @@ public class BaseballServiceImpl implements BaseballService {
     }
 
     //m2
+
     /**
      * 숫자 유효성 확인
-     * @param numbers 유효성 확인할 문자 배열
+     *
+     * @param numbers        유효성 확인할 문자 배열
      * @param exceptionThrow Exception throw 여부
      * @return 유효성 확인 결과 (true: 조건 만족, false: 조건 불충족)
      */
@@ -78,11 +80,13 @@ public class BaseballServiceImpl implements BaseballService {
         for (char number : numbers) {
             numberSet.add(String.valueOf(number));
         }
-        if (numberSet.size()!=3) {
+        if (numberSet.size() != 3) {
             checkCase = DUPLICATED;
         }
 
-        if (checkCase.equals("")) result = true;
+        if (checkCase.equals("")) {
+            result = true;
+        }
         //exceptionThrow true일 때에만 Exception throw
         if (exceptionThrow && !result) {
             throw new IllegalArgumentException(numberCheckResult.get(checkCase));
@@ -92,10 +96,12 @@ public class BaseballServiceImpl implements BaseballService {
     }
 
     //m3
+
     /**
      * 사용자 추측값과 정답 비교
+     *
      * @param answerNumberVo 정답
-     * @param guessNumberVo 사용자가 입력한 추측값
+     * @param guessNumberVo  사용자가 입력한 추측값
      * @return 비교 결과 (스트라이크, 볼 카운트)
      */
     @Override
@@ -106,7 +112,7 @@ public class BaseballServiceImpl implements BaseballService {
         int length = guessNumberVo.getGuessNumber().length;
         char[] guessNumbers = guessNumberVo.getGuessNumber();
 
-        for (int i=0; i<length; i++) {
+        for (int i = 0; i < length; i++) {
             int[] counts = judgePitching(new String(answerNumberVo.getAnswerNumber()), guessNumbers[i], i);
             ballCount += counts[0];
             strikeCount += counts[1];
@@ -119,7 +125,8 @@ public class BaseballServiceImpl implements BaseballService {
 
     /**
      * 스트라이크/볼 판정
-     * @param answer 정답 숫자
+     *
+     * @param answer    정답 숫자
      * @param guessChar 사용자가 입력한 수 중 한 개 숫자
      * @param index 사용자가 입력한 수 중 몇 번째 숫자인지
      * @return 볼, 스트라이크 순으로 판정 결과 반환 (0: 해당없음, 1: 맞음)
@@ -129,9 +136,9 @@ public class BaseballServiceImpl implements BaseballService {
      */
     @Override
     public int[] judgePitching(String answer, char guessChar, int index) {
-        int[] result = new int[]{0,0}; // 볼 카운트, 스트라이크 카운트
+        int[] result = new int[]{0, 0}; // 볼 카운트, 스트라이크 카운트
 
-        if (answer.charAt(index)==guessChar) {
+        if (answer.charAt(index) == guessChar) {
             result[1] = 1;
             return result;
         }
@@ -143,8 +150,10 @@ public class BaseballServiceImpl implements BaseballService {
     }
 
     //m4
+
     /**
      * 정답여부 확인
+     *
      * @param compareResultVo 스트라이크, 볼 카운트
      * @return 정답여부 (true: 정답 / false: 틀림)
      */
@@ -154,6 +163,7 @@ public class BaseballServiceImpl implements BaseballService {
     }
 
     //m5
+
     /**
      * 게임 재시작/종료 여부 타입값으로 변환
      * 사용자가 제시된 선택값 외에 정의되지 않은 값을 입력할 경우를 대비하여

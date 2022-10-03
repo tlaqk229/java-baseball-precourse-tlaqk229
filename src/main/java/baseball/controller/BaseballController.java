@@ -33,6 +33,7 @@ public class BaseballController {
     }
 
     //c1
+
     /**
      * 정답 생성 후 게임 진행 시작
      */
@@ -47,11 +48,13 @@ public class BaseballController {
     }
 
     //c3
+
     /**
      * 게임 진행 (값 입력과 반복)
      * 사용자 추측값 입력받고 정답여부 확인 후
      * 정답일 경우 메소드 종료
      * 정답이 아닐 경우 위의 과정 반복
+     *
      */
     public void guessAnswerNumber() {
         boolean guessCorrect = false;
@@ -72,9 +75,11 @@ public class BaseballController {
     }
 
     //c4
+
     /**
      * 사용자에게 게임 재시작/종료 여부 확인
      * 입력받은 값이 유효하지 않은 경우 다시 입력받아 확인
+     *
      * @return 게임 재시작/종료 여부 (true: 재시작, false: 종료)
      */
     public boolean askGameContinueOrNot() {
@@ -88,7 +93,9 @@ public class BaseballController {
             continueType = baseballService.checkContinueOrNot(gameContinueOrNotInput);
         }
 
-        if (continueType.equals(BaseballConstants.CONTINUE)) continueOrNot = true;
+        if (continueType.equals(BaseballConstants.CONTINUE)) {
+            continueOrNot = true;
+        }
 
         return continueOrNot;
     }

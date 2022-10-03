@@ -12,6 +12,7 @@ public class BaseballView {
 
     /**
      * 사용자 추측값 입력
+     *
      * @return 사용자 입력값
      */
     public GuessNumberVo playerInput() {
@@ -23,6 +24,7 @@ public class BaseballView {
 
     /**
      * 게임 결과 메세지 출력
+     *
      * @param compareResultVo 정답과 사용자 입력값 비교 결과
      */
     public void printGuessResult(CompareResultVo compareResultVo) {
@@ -33,15 +35,19 @@ public class BaseballView {
         String strikeCountMessage = "";
 
         //스트라이크, 볼 카운트에 따라 메세지 작성
-        if (strike==0 && ball==0) message = "낫싱";
-        if (ball!=0) {
+        if (strike == 0 && ball == 0) {
+            message = "낫싱";
+        }
+        if (ball != 0) {
             ballCountMessage = ball + "볼";
         }
-        if (strike!=0) {
+        if (strike != 0) {
             strikeCountMessage = strike + "스트라이크";
         }
         String delimiter = "";
-        if (!ballCountMessage.equals("") && !strikeCountMessage.equals("")) delimiter = " ";
+        if (!ballCountMessage.equals("") && !strikeCountMessage.equals("")) {
+            delimiter = " ";
+        }
         if (!ballCountMessage.equals("") || !strikeCountMessage.equals("")) {
             StringJoiner joinMessage = new StringJoiner(delimiter);
             joinMessage.add(ballCountMessage);
@@ -55,6 +61,7 @@ public class BaseballView {
 
     /**
      * 게임 재시작/종료 여부 확인 (입력)
+     *
      * @return 사용자가 입력한 게임 재시작/종료 여부
      */
     public String gameContinueOrNotInput() {
