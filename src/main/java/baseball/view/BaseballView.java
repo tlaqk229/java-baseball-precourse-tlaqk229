@@ -15,7 +15,7 @@ public class BaseballView {
      * @return 사용자 입력값
      */
     public GuessNumberVo playerInput() {
-        System.out.println("1~9까지 서로 다른 수로 이루어진 3자리 수를 입력해 주세요 : ");
+        System.out.println("1~9까지 서로 다른 수로 이루어진 3자리 수를 입력해 주세요.");
         String input = Console.readLine();
 
         return new GuessNumberVo(input.toCharArray());
@@ -29,14 +29,21 @@ public class BaseballView {
         String message = ""; // 출력할 게임결과 메세지
         int ball = compareResultVo.getBall(); // 볼 카운트
         int strike = compareResultVo.getStrike(); // 스트라이크 카운트
+        String ballCountMessage = "";
+        String strikeCountMessage = "";
 
         //스트라이크, 볼 카운트에 따라 메세지 작성
-        if(strike==0 && ball==0) message = "낫싱";
-        if(strike!=0 || ball!=0) {
-            String ballCountMessage = ball + "볼";
-            String strikeCountMessage = strike + "스트라이크";
-            StringJoiner joinMessage = new StringJoiner(" ");
-
+        if (strike==0 && ball==0) message = "낫싱";
+        if (ball!=0) {
+            ballCountMessage = ball + "볼";
+        }
+        if (strike!=0) {
+            strikeCountMessage = strike + "스트라이크";
+        }
+        String delimiter = "";
+        if (!ballCountMessage.equals("") && !strikeCountMessage.equals("")) delimiter = " ";
+        if (!ballCountMessage.equals("") || !strikeCountMessage.equals("")) {
+            StringJoiner joinMessage = new StringJoiner(delimiter);
             joinMessage.add(ballCountMessage);
             joinMessage.add(strikeCountMessage);
             message = joinMessage.toString();
