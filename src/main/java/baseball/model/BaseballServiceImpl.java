@@ -7,6 +7,10 @@ import camp.nextstep.edu.missionutils.Randoms;
  */
 public class BaseballServiceImpl implements BaseballService {
 
+    private static final int COUNT = 3; //숫자 개수
+    private static final int BEGIN_NUMBER = 1; //임의생성 숫자 범위 최소값
+    private static final int END_NUMBER = 9; //임의생성 숫자 범위 최대값
+
     //m1
     /**
      * 임의의 3자리 숫자 생성
@@ -14,7 +18,15 @@ public class BaseballServiceImpl implements BaseballService {
      */
     @Override
     public AnswerNumberVo createAnswer() {
-        return null;
+        int i = 0;
+        char[] answer = new char[COUNT];
+        while (i < COUNT) {
+            int randomBall = Randoms.pickNumberInRange(BEGIN_NUMBER, END_NUMBER);
+            answer[i] = String.valueOf(randomBall).charAt(0);
+            i++;
+        }
+
+        return new AnswerNumberVo(answer);
     }
 
     //m2
