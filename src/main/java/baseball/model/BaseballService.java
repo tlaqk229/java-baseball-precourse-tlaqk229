@@ -13,7 +13,9 @@ public interface BaseballService {
 
     /**
      * 숫자 유효성 확인
-     * @param numbers
+     * @param numbers 유효성 확인할 문자 배열
+     * @param exceptionThrow Exception throw 여부
+     * @return 유효성 확인 결과 (true: 조건 만족, false: 조건 불충족)
      */
     boolean checkNumberValid(char[] numbers, boolean exceptionThrow);
 
