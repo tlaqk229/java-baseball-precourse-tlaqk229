@@ -33,7 +33,7 @@ public interface BaseballService {
      * 입력받은 수 길이 확인
      *
      * @param numbers 검사대상
-     * @param count 제약 길이
+     * @param count   제약 길이
      * @return 숫자 검증 결과
      */
     String checkLength(char[] numbers, int count);

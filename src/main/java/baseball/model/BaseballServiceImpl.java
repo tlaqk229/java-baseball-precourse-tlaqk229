@@ -102,7 +102,7 @@ public class BaseballServiceImpl implements BaseballService {
      * 입력받은 수 길이 확인
      *
      * @param numbers 검사대상
-     * @param count 제약 길이
+     * @param count   제약 길이
      * @return 숫자 검증 결과
      */
     @Override
@@ -200,6 +200,7 @@ public class BaseballServiceImpl implements BaseballService {
      * 사용자가 제시된 선택값 외에 정의되지 않은 값을 입력할 경우를 대비하여
      * 아래와 같이 입력값을 변환하여 반환
      * 1: 재시작, 2: 종료, 3: 정의되지 않음
+     *
      * @param gameContinueOrNotInput 사용자가 입력한 재시작/종료 여부
      * @return 게임 재시작/종료 여부 타입
      */
